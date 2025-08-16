@@ -12,8 +12,7 @@ import config
 
 # Import the real CP-VTON network architectures
 from .networks import GMM, UnetGenerator, load_checkpoint
-from ..services.agnostic_builder import AgnosticBuilder
-from ..services.cloth_mask import ClothMaskBuilder
+from ..preprocessing.preprocessing import AgnosticBuilder, ClothMaskBuilder
 
 class CPVTONModel:
     """
@@ -27,7 +26,7 @@ class CPVTONModel:
         self.logger.info(f"Initializing CP-VTON+ model on device: {self.device}")
         
         # Model paths
-        self.checkpoint_dir = Path("CP-VTON+/checkpoints")
+        self.checkpoint_dir = Path("CP-VTON/checkpoints")
         self.gmm_checkpoint = self.checkpoint_dir / "GMM" / "gmm_final.pth"
         self.tom_checkpoint = self.checkpoint_dir / "TOM" / "tom_final.pth"
         

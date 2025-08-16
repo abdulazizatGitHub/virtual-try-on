@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 import cv2
 
-from .image_preprocessor import ImagePreprocessor
+from ..preprocessing.image_preprocessor import ImagePreprocessor
 from ..utils.logger import Logger
 from ..models.cpvton_model import CPVTONModel
 import config
@@ -46,7 +46,7 @@ class TryOnService:
             # Validate input files
             self._validate_input_files(person_image_path, clothing_image_path)
             
-            # Preprocess images
+            # Preprocess images to numpy arrays (H=256, W=192, C=3) in [0,1]
             person_processed = self.preprocessor.preprocess_person_image(person_image_path)
             clothing_processed = self.preprocessor.preprocess_clothing_image(clothing_image_path)
             
