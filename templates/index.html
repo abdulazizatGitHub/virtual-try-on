@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Try-On - CP-VTON+</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-tshirt"></i>
+                    Virtual Try-On
+                </h1>
+                <p class="subtitle">Powered by CP-VTON+ AI</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-container">
+                    <div class="upload-card">
+                        <h3><i class="fas fa-user"></i> Upload Your Photo</h3>
+                        <div class="upload-area" id="personUploadArea">
+                            <div class="upload-placeholder" id="personPlaceholder">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload or drag & drop</p>
+                                <span>Supports: JPG, PNG, BMP</span>
+                            </div>
+                            <img id="personPreview" class="upload-preview" style="display: none;">
+                        </div>
+                        <input type="file" id="personFile" accept=".jpg,.jpeg,.png,.bmp" style="display: none;">
+                        <button class="upload-btn" onclick="document.getElementById('personFile').click()">
+                            <i class="fas fa-upload"></i> Choose Photo
+                        </button>
+                    </div>
+
+                    <div class="upload-card">
+                        <h3><i class="fas fa-tshirt"></i> Upload Clothing</h3>
+                        <div class="upload-area" id="clothingUploadArea">
+                            <div class="upload-placeholder" id="clothingPlaceholder">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload or drag & drop</p>
+                                <span>Supports: JPG, PNG, BMP</span>
+                            </div>
+                            <img id="clothingPreview" class="upload-preview" style="display: none;">
+                        </div>
+                        <input type="file" id="clothingFile" accept=".jpg,.jpeg,.png,.bmp" style="display: none;">
+                        <button class="upload-btn" onclick="document.getElementById('clothingFile').click()">
+                            <i class="fas fa-upload"></i> Choose Clothing
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Try-On Button -->
+                <div class="tryon-section">
+                    <button class="tryon-btn" id="tryonBtn" disabled>
+                        <i class="fas fa-magic"></i> Generate Try-On
+                    </button>
+                    <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Generating your virtual try-on...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <h2><i class="fas fa-star"></i> Your Virtual Try-On Result</h2>
+                <div class="results-container">
+                    <div class="result-card">
+                        <h4>Original Photo</h4>
+                        <img id="originalPerson" class="result-image" alt="Original person">
+                    </div>
+                    <div class="result-card">
+                        <h4>Clothing Item</h4>
+                        <img id="originalClothing" class="result-image" alt="Original clothing">
+                    </div>
+                    <div class="result-card highlight">
+                        <h4>Try-On Result</h4>
+                        <img id="tryonResult" class="result-image" alt="Try-on result">
+                        <div class="result-actions">
+                            <button class="action-btn download-btn" onclick="downloadResult()">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="action-btn share-btn" onclick="shareResult()">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instructions Section -->
+            <section class="instructions-section">
+                <h2><i class="fas fa-info-circle"></i> How It Works</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-step">
+                        <div class="step-number">1</div>
+                        <h4>Upload Your Photo</h4>
+                        <p>Upload a clear photo of yourself in a neutral pose</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">2</div>
+                        <h4>Choose Clothing</h4>
+                        <p>Select the clothing item you want to try on</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">3</div>
+                        <h4>Generate Try-On</h4>
+                        <p>Click the button and let AI create your virtual try-on</p>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-number">4</div>
+                        <h4>Download & Share</h4>
+                        <p>Save your result and share it with friends</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Virtual Try-On. Powered by CP-VTON+ AI Technology.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

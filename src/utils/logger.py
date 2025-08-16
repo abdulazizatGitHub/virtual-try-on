@@ -5,14 +5,16 @@ class Logger(logging.Logger):
     def __init__(self, name: str) -> None:
         super().__init__(name)
 
-        config.path_config.ensure_directories()
+        # Directories are created automatically on import, no need to call ensure_directories
 
         sh = logging.StreamHandler()
         sh.setFormatter(config.log_config.STREAM_FORMATTER)
         sh.setLevel(config.log_config.LEVEL)
         self.addHandler(sh)
 
-        fh = logging.FileHandler(config.path_config.LOGS / f"{name}.log", mode='a')
+        # Create valid filename by replacing dots with underscores
+        safe_name = name.replace('.', '_').replace('/', '_').replace('\\', '_')
+        fh = logging.FileHandler(config.path_config.LOGS / f"{safe_name}.log", mode='a')
         fh.setFormatter(config.log_config.FILE_FORMATTER)
         fh.setLevel(config.log_config.LEVEL)
         self.addHandler(fh)
